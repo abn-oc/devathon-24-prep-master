@@ -12,7 +12,7 @@ const TypingEffect: React.FC<TypingEffectProps> = ({ text }) => {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.01 }}
       className="text-xl mt-5"
     >
       {textArray.map((char, index) => (
@@ -20,7 +20,7 @@ const TypingEffect: React.FC<TypingEffectProps> = ({ text }) => {
           key={index}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: index * 0.1, duration: 0.1 }}
+          transition={{ delay: index * 0.03, duration: 0.01 }}
         >
           {char}
         </motion.span>
