@@ -18,12 +18,12 @@ export interface AuthUser {
 };
 
 export interface MCQ {
-    statement: string,
+    question: string,
     optionA: string,
     optionB: string,
     optionC: string,
     optionD: string,
-    correct: "A" | "B" | "C" | "D"
+    correct: "A" | "B" | "C" | "D" | ""
 }
 
 export interface Test {
