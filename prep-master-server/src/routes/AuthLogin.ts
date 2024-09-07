@@ -31,5 +31,5 @@ export const AuthLogin = async (req: Request, res: Response) => {
     const token = jwt.sign(authUser, process.env.JWT_SECRET || "", { expiresIn: '1d' });
     console.log("[login-route]", { token });
 
-    return res.json({ token });
+    return res.json({ token, authUser });
 }
