@@ -16,11 +16,11 @@ export const TestsCreate = async (req: Request, res: Response) => {
 
         for (const mcq of mcqs) {
             await sql`
-                INSERT INTO mcqs (test_id, question, "optionA", "optionB", "optionC", "optionD", correct)
-                VALUES (${testId}, ${mcq.question}, ${mcq.optionA}, ${mcq.optionB}, ${mcq.optionC}, ${mcq.optionD}, ${mcq.correct})
+                INSERT INTO mcqs (test_id, statement, optionA, optionB, optionC, optionD, correct)
+                VALUES (${testId}, ${mcq.statement}, ${mcq.optionA}, ${mcq.optionB}, ${mcq.optionC}, ${mcq.optionD}, ${mcq.correct})
             `;
         }
-        
+
         res.status(201).json({ message: "Test and MCQs created successfully" });
     } catch (error) {
         console.error("Error creating test:", error);

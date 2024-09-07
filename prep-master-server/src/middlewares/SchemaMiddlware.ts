@@ -12,7 +12,7 @@ const schemas: Schema = {
     }),
     ["/register"]: Joi.object({
         fullname: Joi.string().required(),
-        username: Joi.string().required().pattern(/^[^\s]+$/).messages({ "string.pattern.base": "Username cannot contain spaces" }),
+        username: Joi.string().required().pattern(/^[^\s]+$/).messages({"string.pattern.base": "Username cannot contain spaces"}),
         role: Joi.string().valid('student', 'teacher', 'admin').required(),
         password: Joi.string().required(),
     }),
@@ -21,25 +21,21 @@ const schemas: Schema = {
         author: Joi.string().min(1).max(255).required(),
         category: Joi.string().min(1).max(255).required(),
         mcqs: Joi.array().items(Joi.object({
-            question: Joi.string().required(),
+            statement: Joi.string().required(),
             optionA: Joi.string().required(),
             optionB: Joi.string().required(),
             optionC: Joi.string().required(),
             optionD: Joi.string().required(),
             correct: Joi.string().valid('A', 'B', 'C', 'D')
         })).min(1).required(),
-    }),
-    ["/tests"]: Joi.object({
-        teacherId: Joi.number()
-    })
-};
+    })}
 
 export const SchemaMiddlware = (req: Request, res: Response, next: NextFunction) => {
     console.log("[schema-middleware]", req.url);
     const schemaError = schemas[req.url]?.validate(req.body).error;
 
     if (schemaError)
-        return res.status(400).json({ error: schemaError.details.map(detail => detail.message).join(". ") });
+        return res.status(400).json({error: schemaError.details.map(detail => detail.message).join(". ")});
 
     return next();
 }

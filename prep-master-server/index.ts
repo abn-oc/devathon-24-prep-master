@@ -8,7 +8,6 @@ import { SchemaMiddlware } from './src/middlewares/SchemaMiddlware';
 import { AuthMiddlware } from './src/middlewares/AuthMiddleware';
 import { AuthLogin } from './src/routes/AuthLogin';
 import { TestsCreate } from './src/routes/TestsCreate';
-import { TestsGet } from './src/routes/TestsGet';
 
 const app = express();
 dotenv.config();
@@ -31,7 +30,6 @@ app.post('/verify', AuthMiddlware, (req, res) => res.status(200).send({success: 
 app.post('/register', AuthRegister);
 app.post('/login', AuthLogin);
 app.post('/tests/create', AuthMiddlware, TestsCreate);
-app.post('/tests', AuthMiddlware, TestsGet);
 
 app.listen(port, () => {
     console.log(`Server listening on :${port}`);
