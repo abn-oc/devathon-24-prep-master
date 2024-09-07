@@ -23,6 +23,7 @@ export interface MCQ {
     optionB: string,
     optionC: string,
     optionD: string,
+    correct: "A" | "B" | "C" | "D"
 }
 
 export interface Test {

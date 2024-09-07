@@ -16,7 +16,18 @@ const schemas: Schema = {
         role: Joi.string().valid('student', 'teacher', 'admin').required(),
         password: Joi.string().required(),
     }),
-}
+    ["/tests/create"]: Joi.object({
+        title: Joi.string().min(1).max(255).required(),
+        author: Joi.string().min(1).max(255).required(),
+        category: Joi.string().min(1).max(255).required(),
+        mcqs: Joi.array().items(Joi.object({
+            statement: Joi.string().required(),
+            optionA: Joi.string().required(),
+            optionB: Joi.string().required(),
+            optionC: Joi.string().required(),
+            optionD: Joi.string().required(),
+        })).min(1).required(),
+    })}
 
 export const SchemaMiddlware = (req: Request, res: Response, next: NextFunction) => {
     console.log("[schema-middleware]", req.url);
