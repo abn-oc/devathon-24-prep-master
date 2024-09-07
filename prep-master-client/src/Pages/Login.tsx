@@ -51,7 +51,7 @@ export default function Login() {
                                     className="border border-gray-700 bg-gray-900 text-white rounded-lg p-2 focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
-                            <Button className="w-full mt-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors" type="submit">Login</Button>
+                            <Button className="w-full mt-4 py-2 bg-primary text-black rounded-lg hover:bg-primary-700 transition-colors" type="submit">Login</Button>
                             <div className="text-center mt-4 text-white">
                                 Don't have an account?{' '}
                                 <span onClick={() => { setLogin(false); setSignUp(true); }} className="hover:underline cursor-pointer text-primary-150">
@@ -97,7 +97,7 @@ export default function Login() {
                                     className="border border-gray-700 bg-gray-900 text-white rounded-lg p-2 focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
-                            <Button className="w-full mt-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors" type="submit">Sign Up</Button>
+                            <Button className="w-full mt-4 py-2 bg-primary text-black rounded-lg hover:bg-primary-700 transition-colors" type="submit">Sign Up</Button>
                             <div className="text-center mt-4 text-white">
                                 Already have an account?{' '}
                                 <span onClick={() => { setSignUp(false); setLogin(true); }} className="hover:underline cursor-pointer text-primary">
