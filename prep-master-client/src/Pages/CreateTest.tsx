@@ -30,12 +30,12 @@ export function MCQForm({ back, onAddMCQ }: MCQFormProps) {
     const [b, setB] = useState<string>("");
     const [c, setC] = useState<string>("");
     const [d, setD] = useState<string>("");
-    const [correct, setCorrect] = useState<"" | "A" | "B" | "C" | "D">("");
+    const [correct, setCorrect] = useState<"" | "A" | "B" | "C" | "D" >("");
 
-    const [msg, setmsg] = useState<string>("")
+    const [msg,setmsg] = useState<string>("")
 
     const handleDone = () => {
-        if (a == "" || b == "" || c == "" || d == "" || correct == "" || q == "") {
+        if(a == "" || b == "" || c == "" || d == "" || correct == "" || q == "") {
             setmsg("Don't leave anything blank")
             return;
         }
@@ -115,8 +115,8 @@ export function AddNewMCQ({ onAddMCQ }: { onAddMCQ: (mcq: MCQ) => void }) {
 
     return (
         <div>
-            {active ? <MCQForm back={() => { setActive(false) }} onAddMCQ={onAddMCQ} /> :
-                <Button className="w-fit mt-5 px-5" onClick={() => { setActive(true) }}>
+            {active ? <MCQForm back={() => {setActive(false)}} onAddMCQ={onAddMCQ} /> :
+                <Button className="w-fit mt-5 px-5" onClick={() => {setActive(true)}}>
                     <div className="flex flex-row items-center">
                         <IoIosAddCircleOutline className="size-6 mr-1" /> Add New MCQ
                     </div>
@@ -125,7 +125,7 @@ export function AddNewMCQ({ onAddMCQ }: { onAddMCQ: (mcq: MCQ) => void }) {
     );
 }
 
-export function MCQcomp({ mcq, del }: { mcq: MCQ, del: (arg0: MCQ) => void }) {
+export function MCQcomp({mcq,del}:{mcq:MCQ,del: (arg0: MCQ) => void}) {
 
     return (
         <div className="p-5 w-90 bg-neutral-900 border my-5 rounded-lg flex flex-col">
@@ -150,8 +150,8 @@ export default function CreateTest() {
         setMcqList(prevlist => prevlist.filter(a=> a.question !== mcq.question ))
     }
 
-    const mcqMarkup = mcqList.map(a =>
-        <MCQcomp mcq={a} del={del} />
+    const mcqMarkup = mcqList.map(a => 
+        <MCQcomp mcq={a} del={del}/>
     )
 
     async function handletestsubmit() {
@@ -189,4 +189,3 @@ export default function CreateTest() {
         </div>
     );
 }
-

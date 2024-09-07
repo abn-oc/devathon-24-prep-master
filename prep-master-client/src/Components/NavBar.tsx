@@ -22,20 +22,9 @@ export default function NavBar() {
 
     return (
         <div id='navigation' className='z-20 h-[5rem] bg-neutral-200 flex justify-between items-center px-6'>
-            <div className='flex items-center flex-row'>
-                <a href="/home" className='mr-3'>
-                    <div className='text-[38px] font-bold text-primary min-w-fit'>Perp Master</div>
-                </a>
-                {
-                    localStorage.getItem("role") == "teacher" && localStorage.getItem("prep-token") && (
-                        <Button className='w-[200px]'>
-                            <a href="/teacherdashboard">
-                                Dashboard
-                            </a>
-                        </Button>
-                    )
-                }
-            </div>
+            <a href="/home">
+                <div className='text-[38px] font-bold text-primary'>Prep Master</div>
+            </a>
             {
                 localStorage.getItem("prep-token") && (
                     <div
