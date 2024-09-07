@@ -47,9 +47,11 @@ export default function Login() {
 
         axios.post(`${baseURL}/register`, authData)
             .then((response) => {
-                console.log('Login successful:', response.data);
+                console.log('Register successful:', response.data);
                 console.log('token:', response.data.token);
                 localStorage.setItem("prep-token", response.data.token)
+                localStorage.setItem("username", data.username as string)
+                window.location.href = 'http://localhost:3000/login';
             })
             .catch((error) => {
                 console.error('Login failed:', error);
@@ -72,6 +74,7 @@ export default function Login() {
                                 <label htmlFor="loginName" className="text-lg font-medium text-white mb-1">Name</label>
                                 <input
                                     id="loginName"
+                                    value={`${localStorage.getItem("username") ? localStorage.getItem("username") : ""}`}
                                     name="username"
                                     type="text"
                                     placeholder="Type your name..."
