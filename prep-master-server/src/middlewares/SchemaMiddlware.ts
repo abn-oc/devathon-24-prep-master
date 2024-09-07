@@ -26,6 +26,7 @@ const schemas: Schema = {
             optionB: Joi.string().required(),
             optionC: Joi.string().required(),
             optionD: Joi.string().required(),
+            correct: Joi.string().valid('A', 'B', 'C', 'D')
         })).min(1).required(),
     })}
 

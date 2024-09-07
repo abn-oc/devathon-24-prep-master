@@ -18,7 +18,7 @@ export interface AuthUser {
 };
 
 export interface MCQ {
-    statement: string,
+    question: string,
     optionA: string,
     optionB: string,
     optionC: string,
