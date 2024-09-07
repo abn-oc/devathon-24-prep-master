@@ -24,6 +24,9 @@ export default function Login() {
             .then((response) => {
                 console.log('Login successful:', response.data);
                 localStorage.setItem("prep-token", response.data.token)
+                localStorage.setItem("username", data.username as string)
+                localStorage.setItem("role", response.data.authUser.role)
+                window.location.href = 'http://localhost:3000/home';
             })
             .catch((error) => {
                 console.error('Login failed:', error);
