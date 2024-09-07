@@ -1,6 +1,11 @@
 import Separator from "../Components/Separator"
 import Button from "../Components/Button"
 import { useState } from "react"
+import { AuthRegisterBody, AuthLoginBody } from "../../../prep-master-types/types"
+import axios from "axios"
+
+const baseURL = "http://17.17.3.9:3000"
+
 export default function Login() {
 
     const [login, setLogin] = useState(true);
@@ -10,15 +15,44 @@ export default function Login() {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
-        console.log('Login data:', data);
+        data.username = data.username.toString().replaceAll(" ", "");
+        const authData: AuthLoginBody = {
+            username: data.username as string,
+            password: data.password as string,
+        };
+        axios.post(`${baseURL}/login`, authData)
+            .then((response) => {
+                console.log('Login successful:', response.data);
+                localStorage.setItem("prep-token", response.data.token)
+            })
+            .catch((error) => {
+                console.error('Login failed:', error);
+            });
     };
 
     const handleSignUpSubmit = (event: any) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
-        console.log('Sign Up data:', data);
+        data.username = data.username.toString().replaceAll(" ", "");
+        const authData: AuthRegisterBody = {
+            username: data.username as string,
+            fullname: data.fullname as string,
+            password: data.password as string,
+            role: data.role as 'student' | 'teacher' | 'admin',
+        };
+
+        axios.post(`${baseURL}/register`, authData)
+            .then((response) => {
+                console.log('Login successful:', response.data);
+                console.log('token:', response.data.token);
+                localStorage.setItem("prep-token", response.data.token)
+            })
+            .catch((error) => {
+                console.error('Login failed:', error);
+            });
     };
+
 
     return (
         <>
@@ -35,7 +69,7 @@ export default function Login() {
                                 <label htmlFor="loginName" className="text-lg font-medium text-white mb-1">Name</label>
                                 <input
                                     id="loginName"
-                                    name="name"
+                                    name="username"
                                     type="text"
                                     placeholder="Type your name..."
                                     className="border border-gray-700 bg-gray-900 text-white rounded-lg p-2 focus:outline-none focus:border-primary transition-colors"
@@ -68,24 +102,35 @@ export default function Login() {
                             </div>
                             <Separator />
                             <div className="flex flex-col mb-4">
-                                <label htmlFor="signUpName" className="text-lg font-medium text-white mb-1">Name</label>
+                                <label htmlFor="signUpName" className="text-lg font-medium text-white mb-1">Full Name</label>
                                 <input
                                     id="signUpName"
-                                    name="name"
+                                    name="fullname"
                                     type="text"
                                     placeholder="Type your name..."
                                     className="border border-gray-700 bg-gray-900 text-white rounded-lg p-2 focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
                             <div className="flex flex-col mb-4">
-                                <label htmlFor="signUpEmail" className="text-lg font-medium text-white mb-1">Email</label>
+                                <label htmlFor="signUpName" className="text-lg font-medium text-white mb-1">Username</label>
                                 <input
-                                    id="signUpEmail"
-                                    name="email"
-                                    type="email"
-                                    placeholder="name@example.com"
+                                    id="signUpName"
+                                    name="username"
+                                    type="text"
+                                    placeholder="Type your name..."
                                     className="border border-gray-700 bg-gray-900 text-white rounded-lg p-2 focus:outline-none focus:border-primary transition-colors"
                                 />
+                            </div>
+                            <div className="flex flex-col mb-4">
+                                <label htmlFor="roleSelect" className="text-lg font-medium text-white mb-1">Role</label>
+                                <select
+                                    id="roleSelect"
+                                    name="role"
+                                    className="border border-gray-700 bg-gray-900 text-white rounded-lg p-2 focus:outline-none focus:border-primary transition-colors"
+                                >
+                                    <option value="teacher">Teacher</option>
+                                    <option value="student">Student</option>
+                                </select>
                             </div>
                             <div className="flex flex-col mb-4">
                                 <label htmlFor="signUpPassword" className="text-lg font-medium text-white mb-1">Password</label>
