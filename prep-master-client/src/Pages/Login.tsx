@@ -59,7 +59,7 @@ export default function Login() {
 
     return (
         <>
-            <div className="h-screen flex justify-center items-center bg-neutral-900">
+            <div className="h-screen h-min-90vh flex justify-center items-center bg-neutral-900">
                 <div className="border border-transparent shadow-[2px_2px_240px_rgba(109,40,217,1)] rounded-lg w-[400px] p-3 m-3 bg-neutral-800">
                     {login && (
                         <form onSubmit={handleLoginSubmit} className="max-w-md mx-auto p-6 bg-neutral-800 rounded-lg shadow-lg">

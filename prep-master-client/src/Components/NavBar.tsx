@@ -23,7 +23,7 @@ export default function NavBar() {
     return (
         <div id='navigation' className='z-20 h-[5rem] bg-neutral-200 flex justify-between items-center px-6'>
             <a href="/home">
-                <div className='text-[38px] font-bold text-primary'>Perp Master</div>
+                <div className='text-[38px] font-bold text-primary'>Prep Master</div>
             </a>
             {
                 localStorage.getItem("prep-token") && (

@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, SetStateAction, useState } from "react";
 import Button from "../Components/Button";
 import Separator from "../Components/Separator";
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -7,6 +7,10 @@ import { TiTickOutline } from "react-icons/ti";
 import { motion } from "framer-motion";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import {MCQ} from "../../../prep-master-types/types";
+import { setSyntheticLeadingComments } from "typescript";
+import axios from "axios";
+
+const baseURL = "http://17.17.3.9:3000"
 
 const fadeInFromAbove: any = {
     initial: { opacity: 0, y: -30 },
@@ -36,7 +40,7 @@ export function MCQForm({ back, onAddMCQ }: MCQFormProps) {
             return;
         }
         const newMCQ: MCQ = {
-            statement: q,
+            question: q,
             optionA: a,
             optionB: b,
             optionC: c,
@@ -59,7 +63,7 @@ export function MCQForm({ back, onAddMCQ }: MCQFormProps) {
                 <p className="text-red-500">{msg}</p>
                 <form className="flex flex-col">
                     <div className="flex flex-row items-center my-3">
-                        <label className="mr-5">Question Statement: </label>
+                        <label className="mr-5">Question question: </label>
                         <input id="q" value={q} onChange={e => setQ(e.target.value)} type="text" className="w-96 bg-neutral-700 rounded p-2" />
                     </div>
                     <div className="flex flex-row items-center my-3">
@@ -125,7 +129,7 @@ export function MCQcomp({mcq,del}:{mcq:MCQ,del: (arg0: MCQ) => void}) {
 
     return (
         <div className="p-5 w-90 bg-neutral-900 border my-5 rounded-lg flex flex-col">
-        <p className="text-xl">Q. {mcq.statement}</p>
+        <p className="text-xl">Q. {mcq.question}</p>
         {mcq.correct == 'A'?  <p className="text-green-400">a. {mcq.optionA}</p>:<p className="text-neutral-400">a. {mcq.optionA}</p> }       
         {mcq.correct == 'B'?  <p className="text-green-400">b. {mcq.optionB}</p>:<p className="text-neutral-400">b. {mcq.optionB}</p> }       
         {mcq.correct == 'C'?  <p className="text-green-400">c. {mcq.optionC}</p>:<p className="text-neutral-400">c. {mcq.optionC}</p> }       
@@ -143,26 +147,40 @@ export default function CreateTest() {
     };
 
     function del(mcq:MCQ) {
-        setMcqList(prevlist => prevlist.filter(a=> a.statement !== mcq.statement ))
+        setMcqList(prevlist => prevlist.filter(a=> a.question !== mcq.question ))
     }
 
     const mcqMarkup = mcqList.map(a => 
         <MCQcomp mcq={a} del={del}/>
     )
 
-    function handletestsubmit() {
-        if(mcqList.length == 0) {
+    async function handletestsubmit() {
+        if(mcqList.length == 0 || title == "" || cat == "") {
+            setmsg1("Please fill information")
             return;
         }
+
+        const response = await axios.post(`${baseURL}/tests/create`, {
+            title: title,
+            category: cat,
+            mcqs: mcqList,
+          });
+
     }
 
-    
+    const [title,settitle] = useState<string>("")
+    const [cat,setcategory] = useState<string>("")
+
+    const [msg1,setmsg1] = useState<string>("")
 
     return (
         <div className="bg-neutral-900 min-h-[100vh] p-10 flex flex-col text-white">
+
             <div className="mx-5">
                 <h1 className="text-3xl font-bold">Creating New Test</h1>
                 <Separator className="mt-5" />
+                <div className="flex flex-row items-center mt-5"><label>Title:</label><input className="ml-5 w-96 bg-neutral-700 rounded p-2" type="text" value={title} onChange={(e: { target: { value: SetStateAction<string>; }; })=>settitle(e.target.value)} /></div>
+            <div className="flex flex-row items-center mt-5 mb-5"><label>Category:</label><input className="ml-5 w-96 bg-neutral-700 rounded p-2" type="text" value={cat} onChange={(e: { target: { value: SetStateAction<string>; }; })=>setcategory(e.target.value)} /></div>
                 <p className="text-red-500">{msg1}</p>
                 <AddNewMCQ onAddMCQ={handleAddMCQ} />
                 {mcqMarkup}
