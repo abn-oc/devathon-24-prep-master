@@ -35,5 +35,5 @@ export const AuthRegister = async (req: Request, res: Response) => {
     const token = jwt.sign(user, process.env.JWT_SECRET || "", {expiresIn: '1d'});
     console.log("[register-route]", {token});
     
-    return res.send({success: true});
+    return res.send({token});
 }

@@ -16,3 +16,18 @@ export interface AuthUser {
     role: 'student' | 'teacher' | 'admin',
     verified: boolean
 };
+
+export interface MCQ {
+    statement: string,
+    optionA: string,
+    optionB: string,
+    optionC: string,
+    optionD: string,
+}
+
+export interface Test {
+    title: string,
+    author: string,
+    category: string,
+    mcqs: MCQ[]
+}

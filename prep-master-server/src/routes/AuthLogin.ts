@@ -13,12 +13,12 @@ export const AuthLogin = async (req: Request, res: Response) => {
     `;
 
     if (!user) {
-        return res.status(401).json({ error: "user not found" });
+        return res.status(401).json({ error: "Invalid username or password." });
     }
 
     const passwordMatch = await bcrypt.compare(body.password, user.password);
     if (!passwordMatch) {
-        return res.status(401).json({ error: "Invalid password" });
+        return res.status(401).json({ error: "Invalid username or password." });
     }
 
     const authUser: AuthUser = {
